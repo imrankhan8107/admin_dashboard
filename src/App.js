@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { createContext, useState } from "react";
+import "./App.css";
+import Members from "./pages/Members";
+
+export const memberContext = createContext({
+  members: [],
+  setMembers: () => {},
+  page: 1,
+  setPage: () => {},
+});
 
 function App() {
+  const [members, setMembers] = useState([]);
+  const [page, setPage] = useState(1);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <memberContext.Provider
+        value={{
+          members: members,
+          setMembers: setMembers,
+          page: page,
+          setPage: setPage,
+        }}
+      >
+        <Members />
+      </memberContext.Provider>
     </div>
   );
 }
